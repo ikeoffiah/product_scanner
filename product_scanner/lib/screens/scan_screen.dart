@@ -125,6 +125,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                   cameraActive: _cameraActive,
                   scanAnimation: _scanAnimation,
                   isScanning: _isScanning,
+                  pulseAnimation: _pulseAnimation,
                 ),
               ),
               Expanded(

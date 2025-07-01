@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:product_scanner/screens/custom_widget/camera_overlay.dart';
+import 'package:product_scanner/screens/custom_widget/inactive_state.dart';
 import 'package:product_scanner/screens/custom_widget/loading_overlay.dart';
 import 'package:product_scanner/screens/custom_widget/scan_overlay.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
@@ -8,12 +10,14 @@ class ScannerView extends StatefulWidget {
     required this.cameraActive,
     required this.scanAnimation,
     required this.isScanning,
+    required this.pulseAnimation,
     super.key,
   });
 
   final bool cameraActive;
   final bool isScanning;
   final Animation<double> scanAnimation;
+  final Animation<double> pulseAnimation;
 
   @override
   State<ScannerView> createState() => _ScannerViewState();
@@ -58,6 +62,10 @@ class _ScannerViewState extends State<ScannerView> {
                           : [Colors.grey[900]!, Colors.grey[800]!],
                 ),
               ),
+              child:
+                  widget.cameraActive
+                      ? CameraOverlay()
+                      : InactiveState(pulseAnimation: widget.pulseAnimation),
             ),
 
             if (widget.isScanning && widget.cameraActive)
