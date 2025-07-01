@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:product_scanner/screens/custom_widget/camera_overlay.dart';
 import 'package:product_scanner/screens/custom_widget/inactive_state.dart';
 import 'package:product_scanner/screens/custom_widget/loading_overlay.dart';
 import 'package:product_scanner/screens/custom_widget/scan_overlay.dart';
@@ -12,8 +11,8 @@ class ScannerView extends StatefulWidget {
     required this.scanAnimation,
     required this.isScanning,
     required this.pulseAnimation,
+    required this.startScanning,
     this.onBarcodeScanned,
-    this.onTapToScan,
     super.key,
   });
 
@@ -22,7 +21,7 @@ class ScannerView extends StatefulWidget {
   final Animation<double> scanAnimation;
   final Animation<double> pulseAnimation;
   final void Function(String barcode)? onBarcodeScanned;
-  final VoidCallback? onTapToScan;
+  final VoidCallback startScanning;
 
   @override
   State<ScannerView> createState() => _ScannerViewState();
@@ -78,9 +77,9 @@ class _ScannerViewState extends State<ScannerView> {
                             : [Colors.grey[900]!, Colors.grey[800]!],
                   ),
                 ),
-                child: GestureDetector(
-                  onTap: widget.onTapToScan,
-                  child: InactiveState(pulseAnimation: widget.pulseAnimation),
+                child: InactiveState(
+                  pulseAnimation: widget.pulseAnimation,
+                  scan: widget.startScanning,
                 ),
               ),
 

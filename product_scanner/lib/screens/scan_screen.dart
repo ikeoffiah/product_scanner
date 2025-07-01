@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:image_picker/image_picker.dart';
 import 'package:product_scanner/screens/custom_widget/control_panel.dart';
 import 'package:product_scanner/screens/custom_widget/scanner_view.dart';
@@ -68,10 +67,7 @@ class _ScannerScreenState extends State<ScannerScreen>
       _selectedImage = null;
       _scannedBarcode = null;
     });
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SimpleBarcodeScannerPage()),
-    );
+    final result = await SimpleBarcodeScanner.scanBarcode(context);
     if (result is String && result.isNotEmpty && result != '-1') {
       setState(() {
         _scannedBarcode = result;
@@ -178,7 +174,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                     });
                     _showResult();
                   },
-                  onTapToScan: _startScanning,
+                  startScanning: _startScanning,
                 ),
               ),
               Expanded(
