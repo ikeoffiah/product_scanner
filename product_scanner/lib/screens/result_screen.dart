@@ -1,12 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:product_scanner/screens/custom_widget/result_content.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({required this.isVerified, this.barcode, super.key});
+  const ResultScreen({
+    required this.isVerified,
+    required this.scannedBarcode,
+    required this.selectedImage,
+    required this.barCode,
+    super.key,
+  });
 
   final bool isVerified;
-  final String? barcode;
+
+  final String? scannedBarcode;
+  final File? selectedImage;
+  final String barCode;
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -76,7 +87,8 @@ class _ResultScreenState extends State<ResultScreen>
                       scale: _scaleAnimation.value,
                       child: ResultContent(
                         isVerified: widget.isVerified,
-                        barcode: widget.barcode,
+                        barcode: widget.barCode,
+                        selectedImage: widget.selectedImage,
                       ),
                     );
                   },
