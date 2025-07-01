@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:product_scanner/screens/custom_widget/scanner_view.dart';
 import 'package:product_scanner/screens/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
@@ -116,10 +117,16 @@ class _ScannerScreenState extends State<ScannerScreen>
             colors: [kPrimaryColor, kSecondaryColor],
           ),
         ),
-        child: SafeArea(child: Column(children: <Widget>[
-            
-          ],
-        )),
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: ScannerView(cameraActive: _cameraActive),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
