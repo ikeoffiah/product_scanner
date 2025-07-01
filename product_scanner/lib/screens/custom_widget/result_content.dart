@@ -9,13 +9,12 @@ import 'package:product_scanner/screens/custom_widget/status_card.dart';
 
 class ResultContent extends StatefulWidget {
   const ResultContent({
-    required this.isVerified,
     required this.selectedImage,
     this.scannedBarCode,
     this.barcode,
     super.key,
   });
-  final bool isVerified;
+
   final String? barcode;
   final File? selectedImage;
   final String? scannedBarCode;
@@ -32,7 +31,8 @@ class _ResultContentState extends State<ResultContent> {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          StatusCard(isVerified: widget.isVerified),
+          StatusCard(isVerified: widget.scannedBarCode != null),
+          const SizedBox(height: 30),
           if (widget.selectedImage != null) ...[
             ScannedImageCard(selectedImage: widget.selectedImage),
             const SizedBox(height: 30),
@@ -40,11 +40,11 @@ class _ResultContentState extends State<ResultContent> {
           const SizedBox(height: 30),
           ProductCard(
             scannedBarCode: widget.scannedBarCode,
-            isVerified: widget.isVerified,
+            isVerified: widget.scannedBarCode != null,
             barcode: widget.barcode,
           ),
           const SizedBox(height: 30),
-          IngredientCard(isVerified: widget.isVerified),
+          IngredientCard(isVerified: widget.scannedBarCode != null),
           const SizedBox(height: 30),
           ActionButtons(),
         ],

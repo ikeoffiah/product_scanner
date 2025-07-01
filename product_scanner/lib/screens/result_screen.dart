@@ -6,14 +6,11 @@ import 'package:product_scanner/screens/helper/colors.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({
-    required this.isVerified,
     required this.scannedBarcode,
     required this.selectedImage,
     required this.barCode,
     super.key,
   });
-
-  final bool isVerified;
 
   final String? scannedBarcode;
   final File? selectedImage;
@@ -87,7 +84,7 @@ class _ResultScreenState extends State<ResultScreen>
                       scale: _scaleAnimation.value,
                       child: ResultContent(
                         scannedBarCode: widget.scannedBarcode,
-                        isVerified: widget.isVerified,
+
                         barcode: widget.barCode,
                         selectedImage: widget.selectedImage,
                       ),

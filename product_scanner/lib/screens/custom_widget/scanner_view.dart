@@ -13,6 +13,7 @@ class ScannerView extends StatefulWidget {
     required this.isScanning,
     required this.pulseAnimation,
     this.onBarcodeScanned,
+    this.onTapToScan,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class ScannerView extends StatefulWidget {
   final Animation<double> scanAnimation;
   final Animation<double> pulseAnimation;
   final void Function(String barcode)? onBarcodeScanned;
+  final VoidCallback? onTapToScan;
 
   @override
   State<ScannerView> createState() => _ScannerViewState();
@@ -55,9 +57,7 @@ class _ScannerViewState extends State<ScannerView> {
             if (widget.cameraActive)
               SimpleBarcodeScanner(
                 onScanned: (barcode) {
-                  if (barcode != null &&
-                      barcode.isNotEmpty &&
-                      widget.onBarcodeScanned != null) {
+                  if (barcode.isNotEmpty && widget.onBarcodeScanned != null) {
                     widget.onBarcodeScanned!(barcode);
                   }
                 },
@@ -78,7 +78,10 @@ class _ScannerViewState extends State<ScannerView> {
                             : [Colors.grey[900]!, Colors.grey[800]!],
                   ),
                 ),
-                child: InactiveState(pulseAnimation: widget.pulseAnimation),
+                child: GestureDetector(
+                  onTap: widget.onTapToScan,
+                  child: InactiveState(pulseAnimation: widget.pulseAnimation),
+                ),
               ),
 
             if (widget.isScanning && widget.cameraActive)

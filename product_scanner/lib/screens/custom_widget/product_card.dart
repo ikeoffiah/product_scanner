@@ -89,7 +89,7 @@ class _ProductCardState extends State<ProductCard> {
         widget.barcode != null
             ? ProductModel(
               productName: 'Scanned Product',
-              barcode: widget.barcode!,
+              barcode: widget.scannedBarCode!,
               category: 'Unknown',
               productBrand: 'Unknown',
             )

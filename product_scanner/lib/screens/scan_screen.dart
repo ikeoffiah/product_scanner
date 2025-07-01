@@ -127,15 +127,13 @@ class _ScannerScreenState extends State<ScannerScreen>
       _cameraActive = false;
     });
 
-    final isVerified = Random().nextBool();
-
     Navigator.push(
       context,
       MaterialPageRoute(
         builder:
             (context) => ResultScreen(
               barCode: '',
-              isVerified: isVerified,
+
               scannedBarcode: _scannedBarcode,
               selectedImage: _selectedImage,
             ),
@@ -180,6 +178,7 @@ class _ScannerScreenState extends State<ScannerScreen>
                     });
                     _showResult();
                   },
+                  onTapToScan: _startScanning,
                 ),
               ),
               Expanded(
