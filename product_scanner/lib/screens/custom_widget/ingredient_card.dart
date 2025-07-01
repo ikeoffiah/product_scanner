@@ -64,7 +64,7 @@ class _IngredientCardState extends State<IngredientCard> {
                     decoration: BoxDecoration(
                       color:
                           widget.isVerified
-                              ? kBlueColor.withValues(alpha: 0.2)
+                              ? kBlueColor.withValues(alpha: 0.1)
                               : kGreyColor.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(

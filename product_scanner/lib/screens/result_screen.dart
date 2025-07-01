@@ -3,9 +3,10 @@ import 'package:product_scanner/screens/custom_widget/result_content.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({required this.isVerified, super.key});
+  const ResultScreen({required this.isVerified, this.barcode, super.key});
 
   final bool isVerified;
+  final String? barcode;
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -73,7 +74,10 @@ class _ResultScreenState extends State<ResultScreen>
                   builder: (context, child) {
                     return Transform.scale(
                       scale: _scaleAnimation.value,
-                      child: ResultContent(isVerified: widget.isVerified),
+                      child: ResultContent(
+                        isVerified: widget.isVerified,
+                        barcode: widget.barcode,
+                      ),
                     );
                   },
                 ),

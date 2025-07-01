@@ -5,8 +5,9 @@ import 'package:product_scanner/screens/custom_widget/product_card.dart';
 import 'package:product_scanner/screens/custom_widget/status_card.dart';
 
 class ResultContent extends StatefulWidget {
-  const ResultContent({required this.isVerified, super.key});
+  const ResultContent({required this.isVerified, this.barcode, super.key});
   final bool isVerified;
+  final String? barcode;
 
   @override
   State<ResultContent> createState() => _ResultContentState();
@@ -22,7 +23,7 @@ class _ResultContentState extends State<ResultContent> {
           const SizedBox(height: 20),
           StatusCard(isVerified: widget.isVerified),
           const SizedBox(height: 30),
-          ProductCard(isVerified: widget.isVerified),
+          ProductCard(isVerified: widget.isVerified, barcode: widget.barcode),
           const SizedBox(height: 30),
           IngredientCard(isVerified: widget.isVerified),
           const SizedBox(height: 30),

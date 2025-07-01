@@ -6,8 +6,9 @@ import 'package:product_scanner/screens/custom_widget/info_row.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({required this.isVerified, super.key});
+  const ProductCard({required this.isVerified, this.barcode, super.key});
   final bool isVerified;
+  final String? barcode;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -80,7 +81,14 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     final ProductModel product =
-        widget.isVerified
+        widget.barcode != null
+            ? ProductModel(
+              productName: 'Scanned Product',
+              barcode: widget.barcode!,
+              category: 'Unknown',
+              productBrand: 'Unknown',
+            )
+            : widget.isVerified
             ? _mockProducts[Random().nextInt(_mockProducts.length)]
             : ProductModel(
               productName: "Unknown Product",

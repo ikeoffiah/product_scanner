@@ -47,6 +47,14 @@ class _ActionButtonsState extends State<ActionButtons> {
               'Share result',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: kWhiteColor,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              side: const BorderSide(color: kWhiteColor24),
+            ),
           ),
         ),
       ],

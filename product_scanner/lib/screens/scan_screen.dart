@@ -121,7 +121,11 @@ class _ScannerScreenState extends State<ScannerScreen>
             children: <Widget>[
               Expanded(
                 flex: 3,
-                child: ScannerView(cameraActive: _cameraActive),
+                child: ScannerView(
+                  cameraActive: _cameraActive,
+                  scanAnimation: _scanAnimation,
+                  isScanning: _isScanning,
+                ),
               ),
               Expanded(
                 flex: 1,

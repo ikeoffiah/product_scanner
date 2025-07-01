@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:product_scanner/screens/custom_widget/loading_overlay.dart';
+import 'package:product_scanner/screens/custom_widget/scan_overlay.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 
 class ScannerView extends StatefulWidget {
-  const ScannerView({required this.cameraActive, super.key});
+  const ScannerView({
+    required this.cameraActive,
+    required this.scanAnimation,
+    required this.isScanning,
+    super.key,
+  });
 
   final bool cameraActive;
+  final bool isScanning;
+  final Animation<double> scanAnimation;
 
   @override
   State<ScannerView> createState() => _ScannerViewState();
@@ -50,6 +59,11 @@ class _ScannerViewState extends State<ScannerView> {
                 ),
               ),
             ),
+
+            if (widget.isScanning && widget.cameraActive)
+              ScanOverlay(scanAnimation: widget.scanAnimation),
+
+            if (widget.isScanning && !widget.cameraActive) LoadingOverlay(),
           ],
         ),
       ),
