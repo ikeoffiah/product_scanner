@@ -94,7 +94,9 @@ class _ScannerScreenState extends State<ScannerScreen>
       MaterialPageRoute(
         builder:
             (context) =>
-                isVerified ? const ResultScreen() : const ErrorScreen(),
+                isVerified
+                    ? ResultScreen(isVerified: isVerified)
+                    : const ErrorScreen(),
       ),
     );
   }
