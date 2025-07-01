@@ -86,6 +86,7 @@ class _ResultScreenState extends State<ResultScreen>
                     return Transform.scale(
                       scale: _scaleAnimation.value,
                       child: ResultContent(
+                        scannedBarCode: widget.scannedBarcode,
                         isVerified: widget.isVerified,
                         barcode: widget.barCode,
                         selectedImage: widget.selectedImage,

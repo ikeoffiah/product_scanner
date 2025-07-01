@@ -6,80 +6,85 @@ import 'package:product_scanner/screens/custom_widget/info_row.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({required this.isVerified, this.barcode, super.key});
+  const ProductCard({
+    required this.isVerified,
+    required this.scannedBarCode,
+    this.barcode,
+    super.key,
+  });
   final bool isVerified;
   final String? barcode;
+  final String? scannedBarCode;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
-  final List<ProductModel> _mockProducts = [
-    ProductModel(
-      productName: 'Hydra Glow Face Serum',
-      barcode: '8901234567890',
-      category: 'Skincare',
-      productBrand: 'Luminous Glow',
-    ),
-    ProductModel(
-      productName: 'Velvet Matte Lipstick',
-      barcode: '8901234567891',
-      category: 'Makeup',
-      productBrand: 'ColorMuse',
-    ),
-    ProductModel(
-      productName: 'Argan Oil Hair Mask',
-      barcode: '8901234567892',
-      category: 'Haircare',
-      productBrand: 'NaturEssence',
-    ),
-    ProductModel(
-      productName: '24H Longwear Foundation',
-      barcode: '8901234567893',
-      category: 'Makeup',
-      productBrand: 'FlawlessMe',
-    ),
-    ProductModel(
-      productName: 'Vitamin C Night Cream',
-      barcode: '8901234567894',
-      category: 'Skincare',
-      productBrand: 'GlowUp',
-    ),
-    ProductModel(
-      productName: 'Aloe Vera Face Wash',
-      barcode: '8901234567895',
-      category: 'Skincare',
-      productBrand: 'HerbalBliss',
-    ),
-    ProductModel(
-      productName: 'Waterproof Mascara',
-      barcode: '8901234567896',
-      category: 'Makeup',
-      productBrand: 'LashBoost',
-    ),
-    ProductModel(
-      productName: 'Rose Water Toner',
-      barcode: '8901234567897',
-      category: 'Skincare',
-      productBrand: 'PureSkin',
-    ),
-    ProductModel(
-      productName: 'Shea Butter Body Lotion',
-      barcode: '8901234567898',
-      category: 'Bodycare',
-      productBrand: 'SoftSilk',
-    ),
-    ProductModel(
-      productName: 'Tea Tree Acne Gel',
-      barcode: '8901234567899',
-      category: 'Skincare',
-      productBrand: 'ClearDerm',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<ProductModel> _mockProducts = [
+      ProductModel(
+        productName: 'Hydra Glow Face Serum',
+        barcode: widget.scannedBarCode ?? '8901234567890',
+        category: 'Skincare',
+        productBrand: 'Luminous Glow',
+      ),
+      ProductModel(
+        productName: 'Velvet Matte Lipstick',
+        barcode: widget.scannedBarCode ?? '8901234567891',
+        category: 'Makeup',
+        productBrand: 'ColorMuse',
+      ),
+      ProductModel(
+        productName: 'Argan Oil Hair Mask',
+        barcode: widget.scannedBarCode ?? '8901234567892',
+        category: 'Haircare',
+        productBrand: 'NaturEssence',
+      ),
+      ProductModel(
+        productName: '24H Longwear Foundation',
+        barcode: widget.scannedBarCode ?? '8901234567893',
+        category: 'Makeup',
+        productBrand: 'FlawlessMe',
+      ),
+      ProductModel(
+        productName: 'Vitamin C Night Cream',
+        barcode: widget.scannedBarCode ?? '8901234567894',
+        category: 'Skincare',
+        productBrand: 'GlowUp',
+      ),
+      ProductModel(
+        productName: 'Aloe Vera Face Wash',
+        barcode: widget.scannedBarCode ?? '8901234567895',
+        category: 'Skincare',
+        productBrand: 'HerbalBliss',
+      ),
+      ProductModel(
+        productName: 'Waterproof Mascara',
+        barcode: widget.scannedBarCode ?? '8901234567896',
+        category: 'Makeup',
+        productBrand: 'LashBoost',
+      ),
+      ProductModel(
+        productName: 'Rose Water Toner',
+        barcode: widget.scannedBarCode ?? '8901234567897',
+        category: 'Skincare',
+        productBrand: 'PureSkin',
+      ),
+      ProductModel(
+        productName: 'Shea Butter Body Lotion',
+        barcode: widget.scannedBarCode ?? '8901234567898',
+        category: 'Bodycare',
+        productBrand: 'SoftSilk',
+      ),
+      ProductModel(
+        productName: 'Tea Tree Acne Gel',
+        barcode: widget.scannedBarCode ?? '8901234567899',
+        category: 'Skincare',
+        productBrand: 'ClearDerm',
+      ),
+    ];
     final ProductModel product =
         widget.barcode != null
             ? ProductModel(

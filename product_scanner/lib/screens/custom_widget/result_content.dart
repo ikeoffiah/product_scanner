@@ -11,12 +11,14 @@ class ResultContent extends StatefulWidget {
   const ResultContent({
     required this.isVerified,
     required this.selectedImage,
+    this.scannedBarCode,
     this.barcode,
     super.key,
   });
   final bool isVerified;
   final String? barcode;
   final File? selectedImage;
+  final String? scannedBarCode;
 
   @override
   State<ResultContent> createState() => _ResultContentState();
@@ -36,7 +38,11 @@ class _ResultContentState extends State<ResultContent> {
             const SizedBox(height: 30),
           ],
           const SizedBox(height: 30),
-          ProductCard(isVerified: widget.isVerified, barcode: widget.barcode),
+          ProductCard(
+            scannedBarCode: widget.scannedBarCode,
+            isVerified: widget.isVerified,
+            barcode: widget.barcode,
+          ),
           const SizedBox(height: 30),
           IngredientCard(isVerified: widget.isVerified),
           const SizedBox(height: 30),

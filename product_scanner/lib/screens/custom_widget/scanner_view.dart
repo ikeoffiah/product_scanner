@@ -4,6 +4,7 @@ import 'package:product_scanner/screens/custom_widget/inactive_state.dart';
 import 'package:product_scanner/screens/custom_widget/loading_overlay.dart';
 import 'package:product_scanner/screens/custom_widget/scan_overlay.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class ScannerView extends StatefulWidget {
   const ScannerView({
@@ -11,6 +12,7 @@ class ScannerView extends StatefulWidget {
     required this.scanAnimation,
     required this.isScanning,
     required this.pulseAnimation,
+    this.onBarcodeScanned,
     super.key,
   });
 
@@ -18,6 +20,7 @@ class ScannerView extends StatefulWidget {
   final bool isScanning;
   final Animation<double> scanAnimation;
   final Animation<double> pulseAnimation;
+  final void Function(String barcode)? onBarcodeScanned;
 
   @override
   State<ScannerView> createState() => _ScannerViewState();
@@ -49,24 +52,34 @@ class _ScannerViewState extends State<ScannerView> {
         borderRadius: BorderRadius.circular(18),
         child: Stack(
           children: [
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors:
-                      widget.cameraActive
-                          ? [Colors.black87, Colors.black54]
-                          : [Colors.grey[900]!, Colors.grey[800]!],
+            if (widget.cameraActive)
+              SimpleBarcodeScanner(
+                onScanned: (barcode) {
+                  if (barcode != null &&
+                      barcode.isNotEmpty &&
+                      widget.onBarcodeScanned != null) {
+                    widget.onBarcodeScanned!(barcode);
+                  }
+                },
+                continuous: false,
+                onBarcodeViewCreated: (controller) {},
+              )
+            else
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors:
+                        widget.cameraActive
+                            ? [Colors.black87, Colors.black54]
+                            : [Colors.grey[900]!, Colors.grey[800]!],
+                  ),
                 ),
+                child: InactiveState(pulseAnimation: widget.pulseAnimation),
               ),
-              child:
-                  widget.cameraActive
-                      ? CameraOverlay()
-                      : InactiveState(pulseAnimation: widget.pulseAnimation),
-            ),
 
             if (widget.isScanning && widget.cameraActive)
               ScanOverlay(scanAnimation: widget.scanAnimation),

@@ -7,7 +7,7 @@ import 'package:product_scanner/screens/custom_widget/scanner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 import 'package:product_scanner/screens/result_screen.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key});
@@ -24,8 +24,6 @@ class _ScannerScreenState extends State<ScannerScreen>
   late Animation<double> _pulseAnimation;
   bool _isScanning = false;
   bool _cameraActive = false;
-  QRViewController? _qrController;
-  final GlobalKey _qrKey = GlobalKey(debugLabel: 'QR');
   String? _scannedBarcode;
   File? _selectedImage;
   final ImagePicker _imagePicker = ImagePicker();
@@ -58,31 +56,35 @@ class _ScannerScreenState extends State<ScannerScreen>
 
   @override
   void dispose() {
-    _qrController?.dispose();
     _scanAnimationController.dispose();
     _pulseController.dispose();
     super.dispose();
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    _qrController = controller;
-    controller.scannedDataStream.listen((scanData) {
-      if (scanData.code != null && !_isScanning) {
-        _scannedBarcode = scanData.code;
-        _processScanResult();
-      }
-    });
-  }
-
-  void _processScanResult() {
+  Future<void> _startScanning() async {
     setState(() {
       _isScanning = true;
+      _cameraActive = true;
+      _selectedImage = null;
+      _scannedBarcode = null;
     });
-
-    // Simulate processing time
-    Timer(const Duration(seconds: 2), () {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SimpleBarcodeScannerPage()),
+    );
+    if (result is String && result.isNotEmpty && result != '-1') {
+      setState(() {
+        _scannedBarcode = result;
+        _isScanning = false;
+        _cameraActive = false;
+      });
       _showResult();
-    });
+    } else {
+      setState(() {
+        _isScanning = false;
+        _cameraActive = false;
+      });
+    }
   }
 
   Future<void> _pickImage() async {
@@ -113,15 +115,6 @@ class _ScannerScreenState extends State<ScannerScreen>
         ),
       );
     }
-  }
-
-  void _startScanning() {
-    setState(() {
-      _isScanning = false;
-      _cameraActive = true;
-      _selectedImage = null;
-      _scannedBarcode = null;
-    });
   }
 
   void _simulateImageUpload() {
@@ -179,6 +172,14 @@ class _ScannerScreenState extends State<ScannerScreen>
                   scanAnimation: _scanAnimation,
                   isScanning: _isScanning,
                   pulseAnimation: _pulseAnimation,
+                  onBarcodeScanned: (barcode) {
+                    setState(() {
+                      _scannedBarcode = barcode;
+                      _isScanning = false;
+                      _cameraActive = false;
+                    });
+                    _showResult();
+                  },
                 ),
               ),
               Expanded(
