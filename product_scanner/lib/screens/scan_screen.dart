@@ -92,11 +92,7 @@ class _ScannerScreenState extends State<ScannerScreen>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) =>
-                isVerified
-                    ? ResultScreen(isVerified: isVerified)
-                    : const ErrorScreen(),
+        builder: (context) => ResultScreen(isVerified: isVerified),
       ),
     );
   }

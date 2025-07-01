@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:product_scanner/screens/custom_widget/result_content.dart';
 import 'package:product_scanner/screens/helper/colors.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -70,7 +71,10 @@ class _ResultScreenState extends State<ResultScreen>
                 child: AnimatedBuilder(
                   animation: _scaleAnimation,
                   builder: (context, child) {
-                    return Transform.scale(scale: _scaleAnimation.value);
+                    return Transform.scale(
+                      scale: _scaleAnimation.value,
+                      child: ResultContent(isVerified: widget.isVerified),
+                    );
                   },
                 ),
               );
