@@ -14,6 +14,7 @@ class _CameraOverlayState extends State<CameraOverlay> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Simulate camera noise
         Positioned.fill(
           child: Opacity(
             opacity: 0.1,
@@ -30,6 +31,7 @@ class _CameraOverlayState extends State<CameraOverlay> {
           ),
         ),
 
+        // Scan frame
         Center(
           child: Container(
             width: 250,
@@ -40,10 +42,13 @@ class _CameraOverlayState extends State<CameraOverlay> {
             ),
             child: Stack(
               children: [
+                // Corner indicators
                 ...List.generate(
                   4,
                   (index) => CornerStoneIndicator(index: index),
                 ),
+
+                // Center crosshair
                 Center(
                   child: Container(
                     width: 20,
@@ -57,6 +62,22 @@ class _CameraOverlayState extends State<CameraOverlay> {
                         color: kGreenAccentColor,
                         size: 16,
                       ),
+                    ),
+                  ),
+                ),
+
+                // instructions
+                const Positioned(
+                  bottom: 40,
+                  left: 0,
+                  right: 0,
+                  child: Text(
+                    'Position barcode within the frame',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: kWhiteColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
