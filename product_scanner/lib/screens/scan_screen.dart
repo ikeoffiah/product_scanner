@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:product_scanner/screens/custom_widget/control_panel.dart';
 import 'package:product_scanner/screens/custom_widget/scanner_view.dart';
 import 'package:product_scanner/screens/error_screen.dart';
 import 'package:flutter/material.dart';
@@ -123,6 +124,14 @@ class _ScannerScreenState extends State<ScannerScreen>
               Expanded(
                 flex: 3,
                 child: ScannerView(cameraActive: _cameraActive),
+              ),
+              Expanded(
+                flex: 1,
+                child: ControlPanel(
+                  isScanning: _isScanning,
+                  startScanning: _startScanning,
+                  simulateImageUpload: _simulateImageUpload,
+                ),
               ),
             ],
           ),
